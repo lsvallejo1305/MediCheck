@@ -1,0 +1,1542 @@
+﻿ <!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>MediCheck</title>
+
+
+<style>
+
+/* =========================
+   CONFIGURACIÓN GENERAL
+========================= */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+
+    margin: 0;
+
+    min-height: 100vh;
+
+    font-family: Arial, sans-serif;
+
+    background:
+        linear-gradient(
+            135deg,
+            #dff3ff,
+            #f8fcff
+        );
+
+    color: #183b56;
+
+}
+
+
+/* =========================
+   CONTENEDOR PRINCIPAL
+========================= */
+
+.app {
+
+    width: 100%;
+
+    max-width: 850px;
+
+    min-height: 100vh;
+
+    margin: auto;
+
+    padding: 25px;
+
+}
+
+
+/* =========================
+   ENCABEZADO
+========================= */
+
+.header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 18px 5px;
+
+    margin-bottom: 20px;
+
+}
+
+
+.marca {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+}
+
+
+.logo {
+
+    width: 55px;
+
+    height: 55px;
+
+    border-radius: 18px;
+
+    background: #1688d8;
+
+    color: white;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 30px;
+
+    box-shadow:
+        0 8px 20px
+        rgba(22,136,216,0.25);
+
+}
+
+
+.nombre {
+
+    font-size: 28px;
+
+    font-weight: bold;
+
+    color: #126ba8;
+
+}
+
+
+.estado {
+
+    background: white;
+
+    padding: 9px 15px;
+
+    border-radius: 30px;
+
+    font-size: 13px;
+
+    color: #4d7189;
+
+    box-shadow:
+        0 5px 15px
+        rgba(30,80,120,0.08);
+
+}
+
+
+/* =========================
+   TARJETAS
+========================= */
+
+.card {
+
+    background: white;
+
+    border-radius: 30px;
+
+    padding: 45px;
+
+    box-shadow:
+        0 20px 50px
+        rgba(26,82,120,0.13);
+
+}
+
+
+/* =========================
+   PANTALLA INICIO
+========================= */
+
+.inicio {
+
+    text-align: center;
+
+}
+
+
+.iconoGrande {
+
+    font-size: 75px;
+
+    margin-bottom: 10px;
+
+}
+
+
+.titulo {
+
+    font-size: 48px;
+
+    margin: 5px 0;
+
+    color: #126ba8;
+
+}
+
+
+.subtitulo {
+
+    font-size: 21px;
+
+    color: #668295;
+
+    margin-bottom: 30px;
+
+}
+
+
+.descripcion {
+
+    max-width: 620px;
+
+    margin: auto;
+
+    font-size: 18px;
+
+    line-height: 1.7;
+
+    color: #526d7f;
+
+}
+
+
+/* =========================
+   CARACTERÍSTICAS
+========================= */
+
+.caracteristicas {
+
+    display: flex;
+
+    gap: 15px;
+
+    margin: 35px 0;
+
+}
+
+
+.caracteristica {
+
+    flex: 1;
+
+    background: #f2faff;
+
+    border-radius: 18px;
+
+    padding: 18px 10px;
+
+}
+
+
+.caracteristica .emoji {
+
+    font-size: 28px;
+
+}
+
+
+.caracteristica strong {
+
+    display: block;
+
+    margin-top: 8px;
+
+    font-size: 14px;
+
+    color: #27536d;
+
+}
+
+
+/* =========================
+   BOTÓN PRINCIPAL
+========================= */
+
+.botonPrincipal {
+
+    border: none;
+
+    background: #1688d8;
+
+    color: white;
+
+    font-size: 23px;
+
+    font-weight: bold;
+
+    padding: 20px 55px;
+
+    border-radius: 18px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 10px 22px
+        rgba(22,136,216,0.25);
+
+    transition: 0.2s;
+
+}
+
+
+.botonPrincipal:hover {
+
+    transform: translateY(-3px);
+
+}
+
+
+/* =========================
+   PANTALLA PREGUNTAS
+========================= */
+
+.preguntasHeader {
+
+    text-align: center;
+
+}
+
+
+.preguntasHeader h2 {
+
+    margin: 0;
+
+    font-size: 28px;
+
+}
+
+
+.progresoTexto {
+
+    margin-top: 10px;
+
+    color: #698294;
+
+    font-size: 16px;
+
+}
+
+
+/* =========================
+   BARRA
+========================= */
+
+.barraExterior {
+
+    width: 100%;
+
+    height: 14px;
+
+    background: #e6f0f6;
+
+    border-radius: 20px;
+
+    margin: 25px 0 35px;
+
+    overflow: hidden;
+
+}
+
+
+.barraInterior {
+
+    width: 0%;
+
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            #4db6f2,
+            #126ba8
+        );
+
+    border-radius: 20px;
+
+    transition: width 0.4s ease;
+
+}
+
+
+/* =========================
+   PREGUNTA
+========================= */
+
+.preguntaNumero {
+
+    color: #1688d8;
+
+    font-weight: bold;
+
+    font-size: 15px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+
+}
+
+
+.pregunta {
+
+    font-size: 34px;
+
+    line-height: 1.35;
+
+    margin: 15px 0 40px;
+
+}
+
+
+/* =========================
+   RESPUESTAS
+========================= */
+
+.respuestas {
+
+    display: flex;
+
+    gap: 20px;
+
+}
+
+
+.botonRespuesta {
+
+    flex: 1;
+
+    min-height: 115px;
+
+    border: none;
+
+    border-radius: 22px;
+
+    font-size: 28px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+
+}
+
+
+.botonRespuesta:hover {
+
+    transform: translateY(-5px);
+
+}
+
+
+.si {
+
+    background: #d9f7e2;
+
+    color: #24783b;
+
+}
+
+
+.no {
+
+    background: #ffe1e1;
+
+    color: #ad3c3c;
+
+}
+
+
+.iconoBoton {
+
+    display: block;
+
+    font-size: 36px;
+
+    margin-bottom: 5px;
+
+}
+
+
+/* =========================
+   RESULTADO
+========================= */
+
+.resultado {
+
+    text-align: center;
+
+}
+
+
+.resultadoIcono {
+
+    font-size: 70px;
+
+}
+
+
+.resultadoTitulo {
+
+    font-size: 18px;
+
+    color: #688195;
+
+    margin-top: 10px;
+
+}
+
+
+.resultadoNombre {
+
+    font-size: 34px;
+
+    color: #126ba8;
+
+    margin: 12px 0 25px;
+
+}
+
+
+.resultadoDescripcion {
+
+    font-size: 18px;
+
+    line-height: 1.7;
+
+    color: #536e80;
+
+}
+
+
+/* =========================
+   COINCIDENCIAS
+========================= */
+
+.coincidencias {
+
+    margin-top: 30px;
+
+    background: #f3faff;
+
+    border-radius: 20px;
+
+    padding: 25px;
+
+    text-align: left;
+
+}
+
+
+.coincidencias h3 {
+
+    margin-top: 0;
+
+    color: #126ba8;
+
+}
+
+
+.coincidencia {
+
+    padding: 10px 0;
+
+    border-bottom: 1px solid #dcecf5;
+
+    color: #506b7c;
+
+}
+
+
+.coincidencia:last-child {
+
+    border-bottom: none;
+
+}
+
+
+/* =========================
+   AVISO
+========================= */
+
+.aviso {
+
+    margin-top: 25px;
+
+    padding: 20px;
+
+    background: #fff7df;
+
+    border-radius: 18px;
+
+    text-align: left;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+
+    color: #735f2c;
+
+}
+
+
+/* =========================
+   BOTÓN REINICIAR
+========================= */
+
+.reiniciar {
+
+    margin-top: 30px;
+
+}
+
+
+/* =========================
+   PIE
+========================= */
+
+.pie {
+
+    text-align: center;
+
+    margin-top: 20px;
+
+    color: #8ba0ad;
+
+    font-size: 13px;
+
+}
+
+
+/* =========================
+   OCULTO
+========================= */
+
+.oculto {
+
+    display: none;
+
+}
+
+
+/* =========================
+   TABLET / CELULAR
+========================= */
+
+@media (max-width: 650px) {
+
+    .app {
+
+        padding: 12px;
+
+    }
+
+
+    .card {
+
+        padding: 28px 20px;
+
+        border-radius: 24px;
+
+    }
+
+
+    .header {
+
+        padding: 10px 3px;
+
+    }
+
+
+    .estado {
+
+        display: none;
+
+    }
+
+
+    .titulo {
+
+        font-size: 38px;
+
+    }
+
+
+    .caracteristicas {
+
+        flex-direction: column;
+
+    }
+
+
+    .pregunta {
+
+        font-size: 28px;
+
+    }
+
+
+    .respuestas {
+
+        flex-direction: column;
+
+    }
+
+
+    .botonRespuesta {
+
+        min-height: 100px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="app">
+
+
+<!-- =========================
+     ENCABEZADO
+========================= -->
+
+<div class="header">
+
+    <div class="marca">
+
+        <div class="logo">
+            🩺
+        </div>
+
+        <div class="nombre">
+            MediCheck
+        </div>
+
+    </div>
+
+
+    <div class="estado">
+        Sistema académico
+    </div>
+
+</div>
+
+
+
+<!-- =========================
+     INICIO
+========================= -->
+
+<div id="inicio" class="card inicio">
+
+
+    <div class="iconoGrande">
+        🩺
+    </div>
+
+
+    <h1 class="titulo">
+        MediCheck
+    </h1>
+
+
+    <div class="subtitulo">
+        Orientación basada en síntomas
+    </div>
+
+
+    <p class="descripcion">
+
+        Responde preguntas sencillas de
+        <strong>SÍ</strong> o
+        <strong>NO</strong>.
+
+        El sistema analizará tus respuestas
+        mediante reglas y mostrará la
+        coincidencia orientativa más alta.
+
+    </p>
+
+
+
+    <div class="caracteristicas">
+
+
+        <div class="caracteristica">
+
+            <div class="emoji">
+                📝
+            </div>
+
+            <strong>
+                Preguntas sencillas
+            </strong>
+
+        </div>
+
+
+        <div class="caracteristica">
+
+            <div class="emoji">
+                🧠
+            </div>
+
+            <strong>
+                Reglas de decisión
+            </strong>
+
+        </div>
+
+
+        <div class="caracteristica">
+
+            <div class="emoji">
+                📊
+            </div>
+
+            <strong>
+                Resultado orientativo
+            </strong>
+
+        </div>
+
+
+    </div>
+
+
+
+    <button
+        class="botonPrincipal"
+        onclick="comenzarDiagnostico()">
+
+        Comenzar evaluación →
+
+    </button>
+
+
+    <div class="pie">
+
+        Proyecto académico · MediCheck
+
+    </div>
+
+
+</div>
+
+
+
+<!-- =========================
+     PREGUNTAS
+========================= -->
+
+<div id="diagnostico" class="card oculto">
+
+
+    <div class="preguntasHeader">
+
+        <h2>
+            Evaluación de síntomas
+        </h2>
+
+        <div
+            id="numeroPregunta"
+            class="progresoTexto">
+
+            Pregunta 1 de 15
+
+        </div>
+
+    </div>
+
+
+
+    <div class="barraExterior">
+
+        <div
+            id="barraProgreso"
+            class="barraInterior">
+
+        </div>
+
+    </div>
+
+
+
+    <div class="preguntaNumero">
+
+        Síntoma
+
+    </div>
+
+
+    <div
+        id="pregunta"
+        class="pregunta">
+
+        Pregunta
+
+    </div>
+
+
+
+    <div class="respuestas">
+
+
+        <button
+            class="botonRespuesta si"
+            onclick="responder(true)">
+
+            <span class="iconoBoton">
+                ✓
+            </span>
+
+            SÍ
+
+        </button>
+
+
+        <button
+            class="botonRespuesta no"
+            onclick="responder(false)">
+
+            <span class="iconoBoton">
+                ✕
+            </span>
+
+            NO
+
+        </button>
+
+
+    </div>
+
+
+    <div class="pie">
+
+        Selecciona una respuesta para continuar
+
+    </div>
+
+
+</div>
+
+
+
+<!-- =========================
+     RESULTADO
+========================= -->
+
+<div id="resultado" class="card resultado">
+
+
+    <div class="resultadoIcono">
+        📋
+    </div>
+
+
+    <div class="resultadoTitulo">
+        Resultado orientativo
+    </div>
+
+
+    <div
+        id="resultadoTexto"
+        class="resultadoNombre">
+
+        Resultado
+
+    </div>
+
+
+    <p
+        id="detalleResultado"
+        class="resultadoDescripcion">
+
+        Detalles
+
+    </p>
+
+
+
+    <div
+        id="coincidencias"
+        class="coincidencias">
+
+        <h3>
+            🔎 Síntomas relacionados
+        </h3>
+
+        <div id="listaCoincidencias">
+
+        </div>
+
+    </div>
+
+
+
+    <div class="aviso">
+
+        ⚠️ <strong>Aviso importante:</strong>
+
+        MediCheck es un proyecto académico
+        de orientación basado en reglas.
+        Su resultado no constituye un diagnóstico
+        médico y no sustituye la evaluación de
+        un profesional de la salud.
+
+    </div>
+
+
+
+    <button
+        class="botonPrincipal reiniciar"
+        onclick="reiniciar()">
+
+        🔄 Realizar otra evaluación
+
+    </button>
+
+
+    <div class="pie">
+
+        MediCheck · Sistema experto académico
+
+    </div>
+
+
+</div>
+
+
+</div>
+
+
+
+<script>
+
+
+/* =========================
+   PREGUNTAS
+========================= */
+
+const preguntas = [
+
+    "¿Tienes dolor de cabeza?",
+
+    "¿Tienes fiebre?",
+
+    "¿Tienes tos?",
+
+    "¿Tienes dolor de garganta?",
+
+    "¿Tienes congestión nasal?",
+
+    "¿Tienes estornudos?",
+
+    "¿Tienes escalofríos?",
+
+    "¿Tienes dolor muscular?",
+
+    "¿Te sientes muy cansado?",
+
+    "¿Tienes náuseas?",
+
+    "¿Has tenido vómitos?",
+
+    "¿Tienes diarrea?",
+
+    "¿Tienes dolor abdominal?",
+
+    "¿Tienes picazón o ojos llorosos?",
+
+    "¿La luz te molesta cuando tienes dolor de cabeza?"
+
+];
+
+
+
+/* =========================
+   VARIABLES
+========================= */
+
+let preguntaActual = 0;
+
+let respuestas = [];
+
+
+
+/* =========================
+   COMENZAR
+========================= */
+
+function comenzarDiagnostico() {
+
+    preguntaActual = 0;
+
+    respuestas = [];
+
+
+    document
+        .getElementById("inicio")
+        .classList
+        .add("oculto");
+
+
+    document
+        .getElementById("resultado")
+        .classList
+        .add("oculto");
+
+
+    document
+        .getElementById("diagnostico")
+        .classList
+        .remove("oculto");
+
+
+    mostrarPregunta();
+
+}
+
+
+
+/* =========================
+   MOSTRAR PREGUNTA
+========================= */
+
+function mostrarPregunta() {
+
+
+    document
+        .getElementById("pregunta")
+        .textContent =
+        preguntas[preguntaActual];
+
+
+    document
+        .getElementById("numeroPregunta")
+        .textContent =
+        "Pregunta " +
+        (preguntaActual + 1) +
+        " de " +
+        preguntas.length;
+
+
+    let porcentaje =
+        ((preguntaActual + 1)
+        / preguntas.length) * 100;
+
+
+    document
+        .getElementById("barraProgreso")
+        .style.width =
+        porcentaje + "%";
+
+}
+
+
+
+/* =========================
+   RESPONDER
+========================= */
+
+function responder(respuesta) {
+
+
+    respuestas.push(respuesta);
+
+    preguntaActual++;
+
+
+    if (
+        preguntaActual <
+        preguntas.length
+    ) {
+
+        mostrarPregunta();
+
+    }
+
+    else {
+
+        calcularResultado();
+
+    }
+
+}
+
+
+
+/* =========================
+   CALCULAR RESULTADO
+========================= */
+
+function calcularResultado() {
+
+
+    let resfriado = 0;
+
+    let cuadroViral = 0;
+
+    let migrana = 0;
+
+    let alergia = 0;
+
+    let gastrointestinal = 0;
+
+
+
+    /* RESFRIADO */
+
+    if (respuestas[2])
+        resfriado += 2;
+
+    if (respuestas[3])
+        resfriado += 2;
+
+    if (respuestas[4])
+        resfriado += 3;
+
+    if (respuestas[5])
+        resfriado += 2;
+
+
+
+    /* CUADRO VIRAL */
+
+    if (respuestas[1])
+        cuadroViral += 3;
+
+    if (respuestas[6])
+        cuadroViral += 2;
+
+    if (respuestas[7])
+        cuadroViral += 2;
+
+    if (respuestas[8])
+        cuadroViral += 2;
+
+    if (respuestas[2])
+        cuadroViral += 1;
+
+
+
+    /* MIGRAÑA */
+
+    if (respuestas[0])
+        migrana += 3;
+
+    if (respuestas[9])
+        migrana += 2;
+
+    if (respuestas[14])
+        migrana += 3;
+
+
+
+    /* ALERGIA */
+
+    if (respuestas[5])
+        alergia += 3;
+
+    if (respuestas[4])
+        alergia += 2;
+
+    if (respuestas[13])
+        alergia += 4;
+
+
+
+    /* GASTROINTESTINAL */
+
+    if (respuestas[9])
+        gastrointestinal += 2;
+
+    if (respuestas[10])
+        gastrointestinal += 3;
+
+    if (respuestas[11])
+        gastrointestinal += 4;
+
+    if (respuestas[12])
+        gastrointestinal += 3;
+
+
+
+    /* RESULTADOS */
+
+    let resultados = [
+
+        {
+            nombre:
+            "Posible resfriado común",
+
+            puntos:
+            resfriado,
+
+            sintomas:
+            [2,3,4,5]
+        },
+
+
+        {
+            nombre:
+            "Posible cuadro viral",
+
+            puntos:
+            cuadroViral,
+
+            sintomas:
+            [1,6,7,8,2]
+        },
+
+
+        {
+            nombre:
+            "Posible migraña",
+
+            puntos:
+            migrana,
+
+            sintomas:
+            [0,9,14]
+        },
+
+
+        {
+            nombre:
+            "Posible alergia",
+
+            puntos:
+            alergia,
+
+            sintomas:
+            [5,4,13]
+        },
+
+
+        {
+            nombre:
+            "Posible malestar gastrointestinal",
+
+            puntos:
+            gastrointestinal,
+
+            sintomas:
+            [9,10,11,12]
+        }
+
+    ];
+
+
+
+    resultados.sort(function(a,b) {
+
+        return b.puntos - a.puntos;
+
+    });
+
+
+
+    let mejorResultado =
+        resultados[0];
+
+
+
+    /* =========================
+       MOSTRAR RESULTADO
+    ========================= */
+
+    if (mejorResultado.puntos < 3) {
+
+
+        document
+            .getElementById("resultadoTexto")
+            .textContent =
+            "Sin coincidencia suficiente";
+
+
+        document
+            .getElementById("detalleResultado")
+            .textContent =
+            "Las respuestas seleccionadas no presentan suficientes coincidencias con las categorías disponibles.";
+
+    }
+
+    else {
+
+
+        document
+            .getElementById("resultadoTexto")
+            .textContent =
+            mejorResultado.nombre;
+
+
+        document
+            .getElementById("detalleResultado")
+            .textContent =
+            "El sistema comparó tus respuestas con un conjunto de reglas y encontró la mayor coincidencia en esta categoría.";
+
+    }
+
+
+
+    /* =========================
+       MOSTRAR SÍNTOMAS
+    ========================= */
+
+    let lista =
+        document.getElementById(
+            "listaCoincidencias"
+        );
+
+
+    lista.innerHTML = "";
+
+
+    let cantidad = 0;
+
+
+    for (
+        let i = 0;
+        i < mejorResultado.sintomas.length;
+        i++
+    ) {
+
+
+        let indice =
+            mejorResultado.sintomas[i];
+
+
+        if (respuestas[indice]) {
+
+
+            let elemento =
+                document.createElement("div");
+
+
+            elemento.className =
+                "coincidencia";
+
+
+            elemento.textContent =
+                "✓ " +
+                preguntas[indice];
+
+
+            lista.appendChild(elemento);
+
+
+            cantidad++;
+
+        }
+
+    }
+
+
+
+    if (cantidad === 0) {
+
+        let elemento =
+            document.createElement("div");
+
+
+        elemento.className =
+            "coincidencia";
+
+
+        elemento.textContent =
+            "No se identificaron síntomas específicos relacionados.";
+
+        lista.appendChild(elemento);
+
+    }
+
+
+
+    /* =========================
+       CAMBIAR PANTALLA
+    ========================= */
+
+    document
+        .getElementById("diagnostico")
+        .classList
+        .add("oculto");
+
+
+    document
+        .getElementById("resultado")
+        .classList
+        .remove("oculto");
+
+
+}
+
+
+
+/* =========================
+   REINICIAR
+========================= */
+
+function reiniciar() {
+
+
+    preguntaActual = 0;
+
+    respuestas = [];
+
+
+    document
+        .getElementById("resultado")
+        .classList
+        .add("oculto");
+
+
+    document
+        .getElementById("inicio")
+        .classList
+        .remove("oculto");
+
+
+    document
+        .getElementById("barraProgreso")
+        .style.width =
+        "0%";
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>
