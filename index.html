@@ -1,4 +1,4 @@
-﻿ <!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 
 <head>
@@ -532,6 +532,50 @@ body {
 }
 
 
+
+/* =========================
+   NIVEL DE ATENCIÓN ORIENTATIVO
+========================= */
+
+.nivelAtencion {
+    margin: 25px 0;
+    padding: 22px;
+    border-radius: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.nivelAtencion .nivelIcono {
+    font-size: 42px;
+    margin-bottom: 6px;
+}
+
+.nivelAtencion .nivelTitulo {
+    font-size: 22px;
+}
+
+.nivelAtencion .nivelTexto {
+    margin-top: 7px;
+    font-size: 15px;
+    font-weight: normal;
+    line-height: 1.5;
+}
+
+.nivel-verde {
+    background: #e3f7e9;
+    color: #24783b;
+}
+
+.nivel-amarillo {
+    background: #fff4cf;
+    color: #80651b;
+}
+
+.nivel-rojo {
+    background: #ffe3e3;
+    color: #ad3c3c;
+}
+
 /* =========================
    COINCIDENCIAS
 ========================= */
@@ -871,7 +915,7 @@ body {
             id="numeroPregunta"
             class="progresoTexto">
 
-            Pregunta 1 de 15
+            Pregunta 1 de 25
 
         </div>
 
@@ -986,6 +1030,21 @@ body {
     </p>
 
 
+    <div id="nivelAtencion" class="nivelAtencion nivel-verde">
+
+        <div id="nivelIcono" class="nivelIcono">🟢</div>
+
+        <div id="nivelTitulo" class="nivelTitulo">
+            Nivel orientativo: bajo
+        </div>
+
+        <div id="nivelTexto" class="nivelTexto">
+            El resultado obtenido no sugiere una coincidencia elevada con las categorías disponibles.
+        </div>
+
+    </div>
+
+
 
     <div
         id="coincidencias"
@@ -1050,35 +1109,30 @@ body {
 const preguntas = [
 
     "¿Tienes dolor de cabeza?",
-
     "¿Tienes fiebre?",
-
     "¿Tienes tos?",
-
     "¿Tienes dolor de garganta?",
-
     "¿Tienes congestión nasal?",
-
     "¿Tienes estornudos?",
-
     "¿Tienes escalofríos?",
-
     "¿Tienes dolor muscular?",
-
     "¿Te sientes muy cansado?",
-
     "¿Tienes náuseas?",
-
     "¿Has tenido vómitos?",
-
     "¿Tienes diarrea?",
-
     "¿Tienes dolor abdominal?",
-
     "¿Tienes picazón o ojos llorosos?",
-
-    "¿La luz te molesta cuando tienes dolor de cabeza?"
-
+    "¿La luz te molesta cuando tienes dolor de cabeza?",
+    "¿Tienes dificultad para respirar?",
+    "¿Sientes presión o dolor en el pecho?",
+    "¿Tienes mareos?",
+    "¿Has perdido el apetito?",
+    "¿Tienes secreción nasal?",
+    "¿Tienes ronquera?",
+    "¿Tienes dolor o molestia al tragar?",
+    "¿Tienes dolor de oído?",
+    "¿Tienes acidez o ardor en el estómago?",
+    "¿Has tenido sensación de debilidad?"
 ];
 
 
@@ -1291,6 +1345,19 @@ function calcularResultado() {
 
 
 
+    /* SÍNTOMAS ADICIONALES */
+
+    if (respuestas[15]) cuadroViral += 2;
+    if (respuestas[16]) cuadroViral += 3;
+    if (respuestas[17]) migrana += 1;
+    if (respuestas[18]) gastrointestinal += 1;
+    if (respuestas[19]) resfriado += 2;
+    if (respuestas[20]) resfriado += 2;
+    if (respuestas[21]) resfriado += 2;
+    if (respuestas[22]) resfriado += 1;
+    if (respuestas[23]) gastrointestinal += 2;
+    if (respuestas[24]) cuadroViral += 1;
+
     /* RESULTADOS */
 
     let resultados = [
@@ -1303,7 +1370,7 @@ function calcularResultado() {
             resfriado,
 
             sintomas:
-            [2,3,4,5]
+            [2,3,4,5,19,20,21,22]
         },
 
 
@@ -1315,7 +1382,7 @@ function calcularResultado() {
             cuadroViral,
 
             sintomas:
-            [1,6,7,8,2]
+            [1,6,7,8,2,15,16,24]
         },
 
 
@@ -1327,7 +1394,7 @@ function calcularResultado() {
             migrana,
 
             sintomas:
-            [0,9,14]
+            [0,9,14,17]
         },
 
 
@@ -1339,7 +1406,7 @@ function calcularResultado() {
             alergia,
 
             sintomas:
-            [5,4,13]
+            [5,4,13,19]
         },
 
 
@@ -1351,7 +1418,7 @@ function calcularResultado() {
             gastrointestinal,
 
             sintomas:
-            [9,10,11,12]
+            [9,10,11,12,18,23]
         }
 
     ];
@@ -1408,6 +1475,39 @@ function calcularResultado() {
     }
 
 
+
+    /* =========================
+       NIVEL ORIENTATIVO
+    ========================= */
+
+    let nivel = document.getElementById("nivelAtencion");
+    let nivelIcono = document.getElementById("nivelIcono");
+    let nivelTitulo = document.getElementById("nivelTitulo");
+    let nivelTexto = document.getElementById("nivelTexto");
+
+    nivel.className = "nivelAtencion";
+
+    if (respuestas[15] || respuestas[16]) {
+        nivel.classList.add("nivel-rojo");
+        nivelIcono.textContent = "🔴";
+        nivelTitulo.textContent = "Nivel orientativo: alto";
+        nivelTexto.textContent =
+            "Se identificó un síntoma que merece especial atención. Como medida de seguridad, se recomienda buscar valoración de un profesional de la salud.";
+    }
+    else if (mejorResultado.puntos >= 7) {
+        nivel.classList.add("nivel-amarillo");
+        nivelIcono.textContent = "🟡";
+        nivelTitulo.textContent = "Nivel orientativo: moderado";
+        nivelTexto.textContent =
+            "Las respuestas muestran varias coincidencias con una categoría. Considera vigilar la evolución de los síntomas y buscar orientación profesional si empeoran.";
+    }
+    else {
+        nivel.classList.add("nivel-verde");
+        nivelIcono.textContent = "🟢";
+        nivelTitulo.textContent = "Nivel orientativo: bajo";
+        nivelTexto.textContent =
+            "Las respuestas muestran una coincidencia baja o moderada. Mantén atención a la evolución de los síntomas y consulta si persisten o empeoran.";
+    }
 
     /* =========================
        MOSTRAR SÍNTOMAS
