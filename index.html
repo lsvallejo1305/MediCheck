@@ -532,7 +532,6 @@ body {
 }
 
 
-
 /* =========================
    NIVEL DE ATENCIÓN ORIENTATIVO
 ========================= */
@@ -547,11 +546,11 @@ body {
 
 .nivelAtencion .nivelIcono {
     font-size: 42px;
-    margin-bottom: 6px;
 }
 
 .nivelAtencion .nivelTitulo {
     font-size: 22px;
+    margin-top: 5px;
 }
 
 .nivelAtencion .nivelTexto {
@@ -561,20 +560,13 @@ body {
     line-height: 1.5;
 }
 
-.nivel-verde {
-    background: #e3f7e9;
-    color: #24783b;
-}
+.nivel-verde { background: #e3f7e9; color: #24783b; }
+.nivel-amarillo { background: #fff4cf; color: #80651b; }
+.nivel-rojo { background: #ffe3e3; color: #ad3c3c; }
 
-.nivel-amarillo {
-    background: #fff4cf;
-    color: #80651b;
-}
-
-.nivel-rojo {
-    background: #ffe3e3;
-    color: #ad3c3c;
-}
+#profesional { margin-top: 20px; }
+#profesionalNombre { font-size: 20px; font-weight: bold; color: #126ba8; }
+#profesionalTexto { border-bottom: none; line-height: 1.6; }
 
 /* =========================
    COINCIDENCIAS
@@ -1029,19 +1021,20 @@ body {
 
     </p>
 
-
     <div id="nivelAtencion" class="nivelAtencion nivel-verde">
-
         <div id="nivelIcono" class="nivelIcono">🟢</div>
-
-        <div id="nivelTitulo" class="nivelTitulo">
-            Nivel orientativo: bajo
-        </div>
-
+        <div id="nivelTitulo" class="nivelTitulo">Nivel orientativo: bajo</div>
         <div id="nivelTexto" class="nivelTexto">
-            El resultado obtenido no sugiere una coincidencia elevada con las categorías disponibles.
+            El resultado obtenido presenta una coincidencia orientativa baja.
         </div>
+    </div>
 
+    <div id="profesional" class="coincidencias">
+        <h3>🩺 Profesional sugerido</h3>
+        <div id="profesionalNombre" class="coincidencia">Médico general</div>
+        <div id="profesionalTexto" class="coincidencia">
+            Puede realizar una valoración inicial y orientar los siguientes pasos.
+        </div>
     </div>
 
 
@@ -1107,7 +1100,6 @@ body {
 ========================= */
 
 const preguntas = [
-
     "¿Tienes dolor de cabeza?",
     "¿Tienes fiebre?",
     "¿Tienes tos?",
@@ -1255,230 +1247,133 @@ function responder(respuesta) {
 
 function calcularResultado() {
 
+    let resfriado = 0, cuadroViral = 0, migrana = 0, alergia = 0;
+    let gastrointestinal = 0, sinusitis = 0, garganta = 0, respiratorio = 0;
 
-    let resfriado = 0;
-
-    let cuadroViral = 0;
-
-    let migrana = 0;
-
-    let alergia = 0;
-
-    let gastrointestinal = 0;
-
-
-
-    /* RESFRIADO */
-
-    if (respuestas[2])
-        resfriado += 2;
-
-    if (respuestas[3])
-        resfriado += 2;
-
-    if (respuestas[4])
-        resfriado += 3;
-
-    if (respuestas[5])
-        resfriado += 2;
-
-
-
-    /* CUADRO VIRAL */
-
-    if (respuestas[1])
-        cuadroViral += 3;
-
-    if (respuestas[6])
-        cuadroViral += 2;
-
-    if (respuestas[7])
-        cuadroViral += 2;
-
-    if (respuestas[8])
-        cuadroViral += 2;
-
-    if (respuestas[2])
-        cuadroViral += 1;
-
-
-
-    /* MIGRAÑA */
-
-    if (respuestas[0])
-        migrana += 3;
-
-    if (respuestas[9])
-        migrana += 2;
-
-    if (respuestas[14])
-        migrana += 3;
-
-
-
-    /* ALERGIA */
-
-    if (respuestas[5])
-        alergia += 3;
-
-    if (respuestas[4])
-        alergia += 2;
-
-    if (respuestas[13])
-        alergia += 4;
-
-
-
-    /* GASTROINTESTINAL */
-
-    if (respuestas[9])
-        gastrointestinal += 2;
-
-    if (respuestas[10])
-        gastrointestinal += 3;
-
-    if (respuestas[11])
-        gastrointestinal += 4;
-
-    if (respuestas[12])
-        gastrointestinal += 3;
-
-
-
-    /* SÍNTOMAS ADICIONALES */
-
-    if (respuestas[15]) cuadroViral += 2;
-    if (respuestas[16]) cuadroViral += 3;
-    if (respuestas[17]) migrana += 1;
-    if (respuestas[18]) gastrointestinal += 1;
+    if (respuestas[2]) resfriado += 2;
+    if (respuestas[3]) resfriado += 2;
+    if (respuestas[4]) resfriado += 3;
+    if (respuestas[5]) resfriado += 2;
     if (respuestas[19]) resfriado += 2;
     if (respuestas[20]) resfriado += 2;
-    if (respuestas[21]) resfriado += 2;
-    if (respuestas[22]) resfriado += 1;
-    if (respuestas[23]) gastrointestinal += 2;
+
+    if (respuestas[1]) cuadroViral += 3;
+    if (respuestas[6]) cuadroViral += 2;
+    if (respuestas[7]) cuadroViral += 2;
+    if (respuestas[8]) cuadroViral += 2;
+    if (respuestas[2]) cuadroViral += 1;
+    if (respuestas[15]) cuadroViral += 2;
     if (respuestas[24]) cuadroViral += 1;
 
-    /* RESULTADOS */
+    if (respuestas[0]) migrana += 3;
+    if (respuestas[9]) migrana += 2;
+    if (respuestas[14]) migrana += 3;
+    if (respuestas[17]) migrana += 1;
+
+    if (respuestas[5]) alergia += 3;
+    if (respuestas[4]) alergia += 2;
+    if (respuestas[13]) alergia += 4;
+    if (respuestas[19]) alergia += 1;
+
+    if (respuestas[9]) gastrointestinal += 2;
+    if (respuestas[10]) gastrointestinal += 3;
+    if (respuestas[11]) gastrointestinal += 4;
+    if (respuestas[12]) gastrointestinal += 3;
+    if (respuestas[18]) gastrointestinal += 1;
+    if (respuestas[23]) gastrointestinal += 2;
+
+    if (respuestas[4]) sinusitis += 3;
+    if (respuestas[19]) sinusitis += 2;
+    if (respuestas[3]) sinusitis += 1;
+    if (respuestas[0]) sinusitis += 1;
+
+    if (respuestas[3]) garganta += 3;
+    if (respuestas[21]) garganta += 3;
+    if (respuestas[20]) garganta += 1;
+    if (respuestas[1]) garganta += 1;
+
+    if (respuestas[15]) respiratorio += 4;
+    if (respuestas[2]) respiratorio += 2;
+    if (respuestas[20]) respiratorio += 1;
+    if (respuestas[21]) respiratorio += 1;
 
     let resultados = [
-
         {
-            nombre:
-            "Posible resfriado común",
-
-            puntos:
-            resfriado,
-
-            sintomas:
-            [2,3,4,5,19,20,21,22]
+            nombre: "Posible resfriado común",
+            puntos: resfriado,
+            profesional: "Médico general",
+            profesionalTexto: "Puede realizar una valoración inicial de los síntomas y orientar los siguientes pasos.",
+            sintomas: [2,3,4,5,19,20]
         },
-
-
         {
-            nombre:
-            "Posible cuadro viral",
-
-            puntos:
-            cuadroViral,
-
-            sintomas:
-            [1,6,7,8,2,15,16,24]
+            nombre: "Posible cuadro viral",
+            puntos: cuadroViral,
+            profesional: "Médico general",
+            profesionalTexto: "Puede realizar una valoración inicial cuando existen síntomas generales de origen variado.",
+            sintomas: [1,6,7,8,2,15,24]
         },
-
-
         {
-            nombre:
-            "Posible migraña",
-
-            puntos:
-            migrana,
-
-            sintomas:
-            [0,9,14,17]
+            nombre: "Posible migraña",
+            puntos: migrana,
+            profesional: "Neurólogo",
+            profesionalTexto: "Puede evaluar dolores de cabeza recurrentes y determinar si se necesita una valoración especializada.",
+            sintomas: [0,9,14,17]
         },
-
-
         {
-            nombre:
-            "Posible alergia",
-
-            puntos:
-            alergia,
-
-            sintomas:
-            [5,4,13,19]
+            nombre: "Posible alergia",
+            puntos: alergia,
+            profesional: "Alergólogo",
+            profesionalTexto: "Puede estudiar síntomas compatibles con reacciones alérgicas y orientar su evaluación.",
+            sintomas: [5,4,13,19]
         },
-
-
         {
-            nombre:
-            "Posible malestar gastrointestinal",
-
-            puntos:
-            gastrointestinal,
-
-            sintomas:
-            [9,10,11,12,18,23]
+            nombre: "Posible malestar gastrointestinal",
+            puntos: gastrointestinal,
+            profesional: "Gastroenterólogo",
+            profesionalTexto: "Puede valorar síntomas relacionados con el aparato digestivo cuando requieren evaluación especializada.",
+            sintomas: [9,10,11,12,18,23]
+        },
+        {
+            nombre: "Posible molestia sinusal",
+            puntos: sinusitis,
+            profesional: "Otorrinolaringólogo",
+            profesionalTexto: "Puede evaluar molestias relacionadas con nariz, senos paranasales y garganta.",
+            sintomas: [4,19,3,0]
+        },
+        {
+            nombre: "Posible irritación de garganta",
+            puntos: garganta,
+            profesional: "Otorrinolaringólogo",
+            profesionalTexto: "Puede valorar molestias de garganta y determinar si se requiere una evaluación especializada.",
+            sintomas: [3,21,20,1]
+        },
+        {
+            nombre: "Posible cuadro respiratorio",
+            puntos: respiratorio,
+            profesional: "Médico general",
+            profesionalTexto: "Puede realizar una valoración inicial de los síntomas respiratorios y decidir si hace falta una consulta especializada.",
+            sintomas: [15,2,20,21]
         }
-
     ];
 
-
-
     resultados.sort(function(a,b) {
-
         return b.puntos - a.puntos;
-
     });
 
-
-
-    let mejorResultado =
-        resultados[0];
-
-
-
-    /* =========================
-       MOSTRAR RESULTADO
-    ========================= */
+    let mejorResultado = resultados[0];
 
     if (mejorResultado.puntos < 3) {
-
-
-        document
-            .getElementById("resultadoTexto")
-            .textContent =
-            "Sin coincidencia suficiente";
-
-
-        document
-            .getElementById("detalleResultado")
-            .textContent =
+        document.getElementById("resultadoTexto").textContent = "Sin coincidencia suficiente";
+        document.getElementById("detalleResultado").textContent =
             "Las respuestas seleccionadas no presentan suficientes coincidencias con las categorías disponibles.";
-
+        mejorResultado.profesional = "Médico general";
+        mejorResultado.profesionalTexto =
+            "Puede realizar una valoración inicial si los síntomas persisten, cambian o generan preocupación.";
+    } else {
+        document.getElementById("resultadoTexto").textContent = mejorResultado.nombre;
+        document.getElementById("detalleResultado").textContent =
+            "El sistema comparó tus respuestas mediante reglas y encontró la mayor coincidencia orientativa en esta categoría.";
     }
-
-    else {
-
-
-        document
-            .getElementById("resultadoTexto")
-            .textContent =
-            mejorResultado.nombre;
-
-
-        document
-            .getElementById("detalleResultado")
-            .textContent =
-            "El sistema comparó tus respuestas con un conjunto de reglas y encontró la mayor coincidencia en esta categoría.";
-
-    }
-
-
-
-    /* =========================
-       NIVEL ORIENTATIVO
-    ========================= */
 
     let nivel = document.getElementById("nivelAtencion");
     let nivelIcono = document.getElementById("nivelIcono");
@@ -1492,22 +1387,23 @@ function calcularResultado() {
         nivelIcono.textContent = "🔴";
         nivelTitulo.textContent = "Nivel orientativo: alto";
         nivelTexto.textContent =
-            "Se identificó un síntoma que merece especial atención. Como medida de seguridad, se recomienda buscar valoración de un profesional de la salud.";
-    }
-    else if (mejorResultado.puntos >= 7) {
+            "Se identificó un síntoma que merece especial atención. Como medida de seguridad, se recomienda buscar valoración profesional.";
+    } else if (mejorResultado.puntos >= 7) {
         nivel.classList.add("nivel-amarillo");
         nivelIcono.textContent = "🟡";
         nivelTitulo.textContent = "Nivel orientativo: moderado";
         nivelTexto.textContent =
-            "Las respuestas muestran varias coincidencias con una categoría. Considera vigilar la evolución de los síntomas y buscar orientación profesional si empeoran.";
-    }
-    else {
+            "Las respuestas muestran varias coincidencias con una categoría. Se recomienda vigilar la evolución y buscar orientación profesional si empeoran.";
+    } else {
         nivel.classList.add("nivel-verde");
         nivelIcono.textContent = "🟢";
         nivelTitulo.textContent = "Nivel orientativo: bajo";
         nivelTexto.textContent =
-            "Las respuestas muestran una coincidencia baja o moderada. Mantén atención a la evolución de los síntomas y consulta si persisten o empeoran.";
+            "Las respuestas muestran una coincidencia baja o moderada. Mantén atención a la evolución de los síntomas.";
     }
+
+    document.getElementById("profesionalNombre").textContent = mejorResultado.profesional;
+    document.getElementById("profesionalTexto").textContent = mejorResultado.profesionalTexto;
 
     /* =========================
        MOSTRAR SÍNTOMAS
